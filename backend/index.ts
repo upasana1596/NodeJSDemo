@@ -1,9 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
-const db = require('./models')
+import {sequelize} from "./database";
 const app = express();
-db.models.sequelize.sync({force: true});
+sequelize.sync({force: true});
 
 dotenv.config();
 app.use(express.json());

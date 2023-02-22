@@ -1,8 +1,9 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt,AutoIncrement,PrimaryKey,HasMany} from 'sequelize-typescript';
+import { Table, Column, Model, CreatedAt, UpdatedAt,AutoIncrement,PrimaryKey,BelongsToMany} from 'sequelize-typescript';
+import Order from './order';
 import Product from './product';
 
 @Table
-class Category extends Model {
+class Customer extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
@@ -29,7 +30,7 @@ class Category extends Model {
   @UpdatedAt
   updatedAt: Date;
 
-  @HasMany(() => Product)
-  product: Product[];
+  @BelongsToMany(() => Product, () => Order)
+  customer: Product[];
 }
-export default Category
+export default Customer

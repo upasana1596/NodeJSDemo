@@ -1,22 +1,23 @@
-"use strict";
-module.exports = function (sequelize, DataTypes) {
-  const roles = sequelize.define(
-    "Roles",
-    {
-      name: DataTypes.STRING,
-      createdAt: {
-        defaultValue: new Date(),
-        type: DataTypes.DATE,
-      },
-      updatedAt: {
-        defaultValue: new Date(),
-        type: DataTypes.DATE,
-      },
-    },
-    {
-      freezeTableName: true,
-      tableName: "roles",
-    }
-  );
-  return roles;
-};
+import { Table, Column, Model, CreatedAt, UpdatedAt,AutoIncrement,PrimaryKey,HasMany} from 'sequelize-typescript';
+import User from './user';
+
+@Table
+class Role extends Model {
+  @AutoIncrement
+  @PrimaryKey
+  @Column
+  id: number;
+  
+  @Column
+  name: string;
+
+  @CreatedAt
+  createdAt: Date;
+
+  @UpdatedAt
+  updatedAt: Date;
+
+  @HasMany(() => User)
+  user: User[];
+}
+export default Role
