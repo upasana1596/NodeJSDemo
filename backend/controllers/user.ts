@@ -3,6 +3,7 @@ import user from "../models/user";
 var bcrypt = require("bcryptjs");
 import userRole from "../helpers/constant";
 import deleteRecordStatus from "../helpers/constant";
+import jwt from 'jsonwebtoken';
 
 /**
  * User SignUp
@@ -42,10 +43,21 @@ export const signIn: RequestHandler = async (req, res, next) => {
     if (!passwordIsValid) {
       return res.status(404).json({ message: "Invalid password" });
     }
+    var token = jwt.sign(
+      {
+        id: userData.id,
+        roleId: userData.roleId,
+      },
+      process.env.SECRET_KEY,
+      {
+        expiresIn: "1h",
+      }
+    );
     var userRes = {
       userId: userData.id,
       email: userData.email,
       roleId: userData.roleId,
+      token:token
     };
     return res
       .status(200)
