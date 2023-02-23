@@ -8,6 +8,8 @@ import {
   PrimaryKey,
   BelongsToMany,
   Default,
+  DataType,
+  HasMany,
 } from "sequelize-typescript";
 import order from "./order";
 import product from "./product";
@@ -22,7 +24,7 @@ class customer extends Model {
   @Column
   name: string;
 
-  @Column
+  @Column(DataType.BIGINT)
   mobileNo: number;
 
   @Column
@@ -44,7 +46,7 @@ class customer extends Model {
   @UpdatedAt
   updatedAt: Date;
 
-  @BelongsToMany(() => product, () => order)
-  customer: product[];
+  @HasMany(() => order)
+  product: order[];
 }
 export default customer;
