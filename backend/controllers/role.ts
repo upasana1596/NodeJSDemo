@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import role from "../models/role";
 import deleteRecordStatus from "../helpers/constant";
+import activeRecordStatus from "../helpers/constant";
 
 /**
  * Add User Role
@@ -10,6 +11,7 @@ import deleteRecordStatus from "../helpers/constant";
 export const createRole: RequestHandler = async (req, res, next) => {
   const roleData = {
     name: req.body.name,
+    recordStatus:activeRecordStatus.activeRecordStatus,
   };
   var roleRes = await role.create(roleData);
   return res
@@ -52,8 +54,8 @@ export const updateRole: RequestHandler = async (req, res, next) => {
 };
 
 /**
- * Delete User
- * @param object req to delete user.
+ * Delete Role
+ * @param object req to delete role.
  * @return object as success or failure.
  **/
 export const deleteRole: RequestHandler = async (req, res, next) => {
