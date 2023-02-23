@@ -21,18 +21,6 @@ class category extends Model {
   @Column
   name: string;
 
-  @Column
-  mobileNo: number;
-
-  @Column
-  city: string;
-
-  @Column
-  address: string;
-
-  @Column
-  pincode: string;
-
   @Default(0) //sets default value 0
   @Column
   recordStatus: number;
