@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import product from "../models/product";
 import deleteRecordStatus from "../helpers/constant";
+import category from "../models/categories";
 
 /**
  * Add Product
@@ -24,7 +25,13 @@ export const createProduct: RequestHandler = async (req, res, next) => {
  * @return object as success or failure.
  **/
 export const getAllProduct: RequestHandler = async (req, res, next) => {
-  const products: product[] = await product.findAll();
+  const products: product[] = await product.findAll({
+    include:[{
+      model:category,
+      attributes:["id","name"]
+    }]
+  });
+  
   return res
     .status(200)
     .json({ message: "Product fetched successfully", data: products });

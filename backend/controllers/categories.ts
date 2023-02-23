@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import category from "../models/categories";
 import deleteRecordStatus from "../helpers/constant";
+import { Op } from "sequelize";
 
 /**
  * Add Categories
@@ -16,10 +17,18 @@ export const createCategory: RequestHandler = async (req, res, next) => {
 
 /**
  * Get Category List
+ * @param object req to filter user.
  * @return object as success or failure.
  **/
 export const getAllCategory: RequestHandler = async (req, res, next) => {
-  const categories: category[] = await category.findAll();
+  const categories: category[] = await category.findAll({
+    where: {
+      name: {
+        [Op.like]: "%" + req.body.name + "%",
+      },
+    },
+    limit: req.body.pageSize,
+  });
   return res
     .status(200)
     .json({ message: "Categories fetched successfully", data: categories });

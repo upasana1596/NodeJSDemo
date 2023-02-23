@@ -20,7 +20,7 @@ export const VerifyToken: RequestHandler = async (req, res, next) => {
     }
 };
 
-export const getUserIdandRoleId: RequestHandler  = async (req, res, next) => {
+export const getUserIdandRoleId = async function(){
     const data = {userid : userId,roleid:roleId}
     return data;
 }

@@ -1,0 +1,53 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Node Js Demo",
+      "description": "Node Js Demo",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Products",
+        "description": "API for products in the system"
+      }
+    ],
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+      "/product/getProducts": {
+        "get": {
+          "tags": ["Products"],
+          "summary": "Get all products in system",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Products"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Product": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "uniqueItems": true
+          }
+        }
+      },
+      "Products": {
+        "type": "array",
+        "$ref": "#/definitions/Product"
+      }
+    }
+  }
