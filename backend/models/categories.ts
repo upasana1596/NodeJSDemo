@@ -1,8 +1,18 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt,AutoIncrement,PrimaryKey,HasMany} from 'sequelize-typescript';
-import Product from './product';
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  UpdatedAt,
+  AutoIncrement,
+  PrimaryKey,
+  HasMany,
+  Default,
+} from "sequelize-typescript";
+import product from "./product";
 
 @Table
-class Category extends Model {
+class category extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
@@ -22,14 +32,18 @@ class Category extends Model {
 
   @Column
   pincode: string;
-  
+
+  @Default(0) //sets default value 0
+  @Column
+  recordStatus: number;
+
   @CreatedAt
   createdAt: Date;
 
   @UpdatedAt
   updatedAt: Date;
 
-  @HasMany(() => Product)
-  product: Product[];
+  @HasMany(() => product)
+  product: product[];
 }
-export default Category
+export default category;

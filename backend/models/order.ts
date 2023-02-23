@@ -1,9 +1,20 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt,AutoIncrement,PrimaryKey,ForeignKey,DataType,HasMany} from 'sequelize-typescript';
-import Customer from './customer';
-import Product from './product';
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  UpdatedAt,
+  AutoIncrement,
+  PrimaryKey,
+  ForeignKey,
+  DataType,
+  HasMany,
+} from "sequelize-typescript";
+import customer from "./customer";
+import product from "./product";
 
 @Table
-class Order extends Model {
+class order extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
@@ -16,13 +27,13 @@ class Order extends Model {
   unitQty: number;
 
   @Column(DataType.DECIMAL)
-  totalamount : number;
-  
-  @Column(DataType.DECIMAL)
-  discount : number;
+  totalamount: number;
 
   @Column(DataType.DECIMAL)
-  finalamount : number;
+  discount: number;
+
+  @Column(DataType.DECIMAL)
+  finalamount: number;
 
   @CreatedAt
   createdAt: Date;
@@ -30,12 +41,12 @@ class Order extends Model {
   @UpdatedAt
   updatedAt: Date;
 
-  @ForeignKey(() => Product)
+  @ForeignKey(() => product)
   @Column
   productId: number;
 
-  @ForeignKey(() => Customer)
+  @ForeignKey(() => customer)
   @Column
   customerId: number;
 }
-export default Order
+export default order;
