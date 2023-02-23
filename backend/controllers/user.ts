@@ -4,6 +4,7 @@ var bcrypt = require("bcryptjs");
 import userRole from "../helpers/constant";
 import deleteRecordStatus from "../helpers/constant";
 import jwt from 'jsonwebtoken';
+import { Op } from "sequelize";
 
 /**
  * User SignUp
@@ -67,10 +68,21 @@ export const signIn: RequestHandler = async (req, res, next) => {
 
 /**
  * Get User List
+ * @param object req to filter user.
  * @return object as success or failure.
  **/
 export const getAllUsers: RequestHandler = async (req, res, next) => {
-  const users: user[] = await user.findAll();
+  const users: user[] = await user.findAll({
+    where: {
+      firstName: {
+        [Op.like]: "%" + req.body.firstname + "%", 
+      },
+      lastName: {
+        [Op.like]: "%" + req.body.lastname + "%", 
+      },
+    },
+    limit: req.body.pageSize,
+  });
   return res
     .status(200)
     .json({ message: "Users fetched successfully", data: users });
