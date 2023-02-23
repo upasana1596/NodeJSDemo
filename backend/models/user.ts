@@ -1,13 +1,24 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt,AutoIncrement,PrimaryKey,BelongsTo,ForeignKey} from 'sequelize-typescript';
-import Role from './role';
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  UpdatedAt,
+  AutoIncrement,
+  PrimaryKey,
+  BelongsTo,
+  ForeignKey,
+  Default,
+} from "sequelize-typescript";
+import role from "./role";
 
 @Table
-class User extends Model {
+class user extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
   id: number;
-  
+
   @Column
   firstName: string;
 
@@ -20,23 +31,21 @@ class User extends Model {
   @Column
   password: string;
 
-  @Column
-  createdBy: number;
-
-  @ForeignKey(() => Role)
+  @ForeignKey(() => role)
   @Column
   roleId: number;
-  
+
+  @Default(0) //sets default value 0
   @Column
-  updatedBy: number;
-  
+  recordStatus: number;
+
   @CreatedAt
   createdAt: Date;
 
   @UpdatedAt
   updatedAt: Date;
-  
-  @BelongsTo(() => Role)
-  user: Role;
+
+  @BelongsTo(() => role)
+  role: role;
 }
-export default User
+export default user;

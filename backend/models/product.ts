@@ -1,10 +1,22 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt,AutoIncrement,PrimaryKey,ForeignKey,BelongsTo,BelongsToMany} from 'sequelize-typescript';
-import Category from './categories';
-import Customer from './customer';
-import Order from './order';
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  UpdatedAt,
+  AutoIncrement,
+  PrimaryKey,
+  ForeignKey,
+  BelongsTo,
+  BelongsToMany,
+  Default,
+} from "sequelize-typescript";
+import category from "./categories";
+import customer from "./customer";
+import order from "./order";
 
 @Table
-class Product extends Model {
+class product extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
@@ -16,20 +28,24 @@ class Product extends Model {
   @Column
   description: string;
 
-  @ForeignKey(() => Category)
+  @Default(0) //sets default value 0
+  @Column
+  recordStatus: number;
+
+  @ForeignKey(() => category)
   @Column
   categoryId: number;
-  
+
   @CreatedAt
   createdAt: Date;
 
   @UpdatedAt
   updatedAt: Date;
 
-  @BelongsTo(() => Category)
-  category: Category;
+  @BelongsTo(() => category)
+  category: category;
 
-  @BelongsToMany(() => Customer, () => Order)
-  customer: Customer[];
+  @BelongsToMany(() => customer, () => order)
+  customer: customer[];
 }
-export default Product
+export default product;

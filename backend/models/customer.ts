@@ -1,9 +1,19 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt,AutoIncrement,PrimaryKey,BelongsToMany} from 'sequelize-typescript';
-import Order from './order';
-import Product from './product';
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  UpdatedAt,
+  AutoIncrement,
+  PrimaryKey,
+  BelongsToMany,
+  Default,
+} from "sequelize-typescript";
+import order from "./order";
+import product from "./product";
 
 @Table
-class Customer extends Model {
+class customer extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
@@ -23,14 +33,18 @@ class Customer extends Model {
 
   @Column
   pincode: string;
-  
+
+  @Default(0) //sets default value 0
+  @Column
+  recordStatus: number;
+
   @CreatedAt
   createdAt: Date;
 
   @UpdatedAt
   updatedAt: Date;
 
-  @BelongsToMany(() => Product, () => Order)
-  customer: Product[];
+  @BelongsToMany(() => product, () => order)
+  customer: product[];
 }
-export default Customer
+export default customer;
