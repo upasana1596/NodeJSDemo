@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                                  
+    "module": "commonjs",                                
+    "outDir": "./backend",                                   
+    "esModuleInterop": true,                             
+    "forceConsistentCasingInFileNames": true,            
+    "strict": false,                                      
+    "noImplicitAny": false,                            
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true                                 
+  }
+}
