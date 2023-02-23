@@ -5,11 +5,12 @@ import {
     updateCustomer,
     deleteCustomer
 } from "../controllers/customer";
+import { VerifyToken } from "../helpers/authJwt";
 
 const router = Router();
-router.post("/addCustomer", createCustomer);
-router.get("/getCustomers", getAllCustomer);
-router.post("/updateCustomer", updateCustomer);
-router.post("/deleteCustomer", deleteCustomer);
+router.post("/addCustomer",VerifyToken, createCustomer);
+router.get("/getCustomers",VerifyToken, getAllCustomer); //implemented jwt authentication
+router.post("/updateCustomer",VerifyToken, updateCustomer);
+router.post("/deleteCustomer",VerifyToken, deleteCustomer);
 
 export default router;
