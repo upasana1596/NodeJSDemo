@@ -4,6 +4,7 @@ export default {
     pendingRecordStatus:0, 
     activeRecordStatus:1, 
     rejectRecordStatus:2, 
+    adminRole:1
 };
   
   

@@ -1,6 +1,8 @@
 import { RequestHandler } from "express";
 import customer from "../models/customer";
 import deleteRecordStatus from "../helpers/constant";
+import { getUserIdandRoleId } from "../helpers/authJwt"
+import adminRole from "../helpers/constant";
 
 /**
  * Add Customer
@@ -27,10 +29,18 @@ export const createCustomer: RequestHandler = async (req, res, next) => {
  * @return object as success or failure.
  **/
 export const getAllCustomer: RequestHandler = async (req, res, next) => {
-  const customers: customer[] = await customer.findAll();
-  return res
-    .status(200)
-    .json({ message: "Customer fetched successfully", data: customers });
+  const roleId = getUserIdandRoleId();
+  if((await roleId).roleid === adminRole.adminRole){
+    const customers: customer[] = await customer.findAll();
+    return res
+      .status(200)
+      .json({ message: "Customer fetched successfully", data: customers });
+  }else{
+    return res
+      .status(404)
+      .json({ message: "Invalid User"});
+  }
+ 
 };
 
 /**
