@@ -9,6 +9,7 @@ import {
   ForeignKey,
   DataType,
   HasMany,
+  BelongsTo,
 } from "sequelize-typescript";
 import customer from "./customer";
 import product from "./product";
@@ -48,5 +49,11 @@ class order extends Model {
   @ForeignKey(() => customer)
   @Column
   customerId: number;
+
+  @BelongsTo(() => product)
+  product: product;
+
+  @BelongsTo(() => customer)
+  customer: customer;
 }
 export default order;

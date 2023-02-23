@@ -10,6 +10,7 @@ import {
   BelongsTo,
   BelongsToMany,
   Default,
+  HasMany,
 } from "sequelize-typescript";
 import category from "./categories";
 import customer from "./customer";
@@ -45,7 +46,7 @@ class product extends Model {
   @BelongsTo(() => category)
   category: category;
 
-  @BelongsToMany(() => customer, () => order)
-  customer: customer[];
+  @HasMany(() => order)
+  customer: order[];
 }
 export default product;

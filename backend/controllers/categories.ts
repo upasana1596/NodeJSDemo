@@ -8,7 +8,7 @@ import deleteRecordStatus from "../helpers/constant";
  * @return object as success or failure.
  **/
 export const createCategory: RequestHandler = async (req, res, next) => {
-  var categoryRes = await category.create({name:req.body.name});
+  var categoryRes = await category.create({ name: req.body.name });
   return res
     .status(200)
     .json({ message: "Category created successfully", data: categoryRes });
